@@ -1,17 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-typedef struct timeCopa {
-    int ID;
-    char nome[50];
-    char status[50];
-    int nTitulos;
-    int titulos[6];
-    int ved[3];
-    int golsFavor;
-    int golsContra;
-} Time;
+#include "times.h"
 
 void insereTime(FILE *times){
     Time *novo = (Time *) malloc(sizeof(Time));
@@ -19,7 +6,6 @@ void insereTime(FILE *times){
     int nTitulos, i = 0;
     strcpy(novo ->status, "Fase de grupos");
     
-
     novo ->ved[0] = 0;
     novo ->ved[1] = 0;
     novo ->ved[2] = 0;
@@ -27,6 +13,8 @@ void insereTime(FILE *times){
     novo ->golsFavor = 0;
 
     scanf("%s %d %d", novo ->nome, &novo ->ID, &nTitulos);
+
+    
 
     novo ->nTitulos = nTitulos;
     if(nTitulos == 0){
@@ -40,30 +28,45 @@ void insereTime(FILE *times){
 
     fwrite(&novo ->ID, sizeof(int), 1, times);
     fwrite(novo ->nome, sizeof(char), sizeof(novo ->nome), times);
-    fwrite(novo ->ved, sizeof(int), 1, times);
+    fwrite(novo ->ved, sizeof(int), 3, times);
     fwrite(&novo ->golsFavor, sizeof(int), 1, times);
     fwrite(&novo ->golsContra, sizeof(int), 1, times);
     fwrite(novo -> status, sizeof(char), sizeof(novo ->status), times);
     fwrite(&novo ->nTitulos, sizeof(int), 1, times);
-    fwrite(novo ->titulos, sizeof(int), sizeof(novo ->titulos), times);
+    fwrite(novo ->titulos, sizeof(int), 6, times);
     free(novo);
 }
+
+
 
 Time *leTime(FILE *times){
     Time *lido = (Time *) malloc(sizeof(Time));
 
     fread(&lido ->ID, sizeof(int), 1, times);
     fread(&lido ->nome, sizeof(char), sizeof(lido ->nome), times);
-    fread(&lido ->ved, sizeof(int), 1, times);
+    fread(&lido ->ved, sizeof(int), 3, times);
     fread(&lido ->golsFavor, sizeof(int), 1, times);
     fread(&lido ->golsContra, sizeof(int), 1, times);
     fread(&lido -> status, sizeof(char), sizeof(lido ->status), times);
     fread(&lido ->nTitulos, sizeof(int), 1, times);
-    fread(&lido ->titulos, sizeof(int), sizeof(lido ->titulos), times);
+    fread(&lido ->titulos, sizeof(int), 6, times);
     return lido;
 }
 
-void mostraTimes(FILE *times){
+Time *buscaTime(FILE *times, int id){
+    Time *achado = (Time *) malloc(sizeof(Time));
+    int posicao = 152*(id-1);
+    
+    fseek(times, posicao, SEEK_SET);
+    
+    achado = leTime(times);
+    return achado;
+}
+
+void mostraTimes(){
+
+    FILE *times;
+    times = fopen("times.txt", "ab+");
     int n = 32;
     Time *atual;
     while(n > 0){
@@ -84,18 +87,20 @@ void mostraTimes(FILE *times){
     }
 
     free(atual);
+    fclose(times);
 }
 
-int main(void){
+void insereTimes(){
+    Time *atual;
     int i = 0;
-    FILE *times;
-    Time *time;
-    times = fopen("times.txt", "ab+");
-    while (i < 32){
+    FILE *times = fopen("times.txt", "wb+");
+    while(i <= 31){
         insereTime(times);
         i++;
     }
-    fseek(times, 0, SEEK_SET);
-    mostraTimes(times);
+    free(atual);
     fclose(times);
 }
+
+
+
