@@ -30,6 +30,8 @@ void organizaGrupos();
 
 Grupo *zeraGrupo(Grupo *grupo);
 
+void recomeca();
+
 
 
 #endif

@@ -17,9 +17,13 @@ void inserePartidasFG();
 
 void printaPartidasFG();
 
+void printaPartidaFG(char id);
+
 void escrevePartidaFG();
 
 void seekPartidasFG(char grupo, int rodada, FILE *partidas);
+
+void zeraPartidas();
 
 PartidaFG *lePartida();
 

@@ -62,6 +62,9 @@ void printaGrupo(char idGrupo)
         atual ->ved[j][1],atual ->ved[j][2], atual ->saldoGols[j]);
         j++;
     }
+
+    printf("\n\n");
+    printaPartidaFG(idGrupo);
     printf("\n\n");
     free(*atuais);
 }
@@ -110,6 +113,25 @@ Grupo *zeraGrupo(Grupo *grupo){
         grupo->ved[i][2] = 0;
     }
     return grupo;
+}
+
+void recomeca(){
+    FILE *grupos = fopen("grupos.txt", "rb+");
+    Grupo *atual;
+    int i = 0;
+    while(i <= 7){
+        atual = leGrupo(grupos);
+        atual = zeraGrupo(atual);
+        fseek(grupos, -97, SEEK_CUR);
+        fwrite(&atual->ID, sizeof(char), 1, grupos);
+        fwrite(atual->times, sizeof(int), 4, grupos);
+        fwrite(atual->pontos, sizeof(int), 4, grupos);
+        fwrite(atual->ved, sizeof(int), 12, grupos);
+        fwrite(atual->saldoGols, sizeof(int), 4, grupos);
+        i++;
+    }
+    free(atual);
+    fclose(grupos);   
 }
 
 void organizaGrupos()
