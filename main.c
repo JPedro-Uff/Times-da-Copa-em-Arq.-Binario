@@ -107,7 +107,7 @@ int main(void)
                             break;
                         
                         case 2:
-                            printf("\nDigite a letra grupo:\n");
+                            printf("\nDigite a letra do grupo: (EM MAIUSCULO)\n");
                             scanf(" %c", &idGrupo);
                             printaGrupo(idGrupo);
                             break;
