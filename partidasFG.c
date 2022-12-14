@@ -44,10 +44,13 @@ void escrevePartidaFG(){
     FILE *timestxt = fopen("times.txt", "ab+");
     PartidaFG *partidas[2];
     Time *times[2];
-    printf("\nDigite o grupo a ser simulado:\n");
-    scanf("\n%c", &grupo);
-    printf("\nDigite a rodada:\n");
-    scanf("%d", &rodada);
+    while (1){
+        printf("\nDigite o grupo a ser simulado:\n");
+        scanf("\n%c", &grupo);
+        printf("\nDigite a rodada:\n");
+        scanf("%d", &rodada);
+        if ((1 <= rodada && rodada <= 3) && (65 <= grupo && grupo <= 72)) break;
+    }
     seekPartidasFG(grupo, rodada, partidasFG);
 
     int i = 0;

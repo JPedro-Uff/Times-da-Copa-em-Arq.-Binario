@@ -105,10 +105,10 @@ int main(void)
                         case 1:
                             printaPartidasFG();
                             break;
-                        
                         case 2:
                             printf("\nDigite a letra do grupo: (EM MAIUSCULO)\n");
                             scanf(" %c", &idGrupo);
+                            if(65 > idGrupo || idGrupo > 72)idGrupo = 'A';
                             printaGrupo(idGrupo);
                             break;
                         case 3:
@@ -117,6 +117,7 @@ int main(void)
                         case 4:
                             printf("\nDigite o id do time:\n");
                             scanf("%d", &idTime);
+                            if (0 > idTime || idTime > 32) idTime = 1;
                             mostraTime(idTime);
                             break;
                         case 5:
