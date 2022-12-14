@@ -139,7 +139,7 @@ int main(void)
                 case 2:
                     printf("\nDigite a senha:\n");
                     scanf("%d", &senha);
-                    if(senha != 12345) {
+                    if(senha != 0) {
                         printf("\nSenha incorreta!\n");
                         sairMenus = 1;
                         break;

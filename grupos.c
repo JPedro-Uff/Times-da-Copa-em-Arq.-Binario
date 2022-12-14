@@ -57,7 +57,7 @@ void printaGrupo(char idGrupo)
     printf("\tP\t\tV\t\tE\t\tD\t\tSG\n\n");
     while(j <= 3){
         atuais[j] = buscaTime(times, atual ->times[j]);
-        printf("%c%c%c\t%d\t\t%d\t\t%d\t\t%d\t\t%d\n", atuais[j] ->nome[0], 
+        printf("%d. %c%c%c\t%d\t\t%d\t\t%d\t\t%d\t\t%d\n",j+1, atuais[j] ->nome[0], 
         atuais[j] ->nome[1], atuais[j] ->nome[2], atual ->pontos[j], atual ->ved[j][0],
         atual ->ved[j][1],atual ->ved[j][2], atual ->saldoGols[j]);
         j++;

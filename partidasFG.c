@@ -124,18 +124,31 @@ void printaPartidasFG(){
     PartidaFG *partidaAtual = (PartidaFG*) malloc (sizeof(PartidaFG));
     Time *time1 = (Time *) malloc(sizeof(Time));
     Time *time2 = (Time *) malloc(sizeof(Time));
-    int i = 0;
+
+    int i = 0, rdAnterior = 1;
+    char gpAnterior = 'A';
+    
     while(i <= 47){
+        
         fread(&partidaAtual ->idGrupo, sizeof(char), 1, partidas);
         fread(&partidaAtual ->times, sizeof(int), 2, partidas);
         fread(&partidaAtual ->rodada, sizeof(int), 1, partidas);
         fread(&partidaAtual ->placar, sizeof(int), 2, partidas);
+
         time1 = buscaTime(times, partidaAtual->times[0]);
         time2 = buscaTime(times, partidaAtual->times[1]);
+
+        if (gpAnterior != partidaAtual->idGrupo) printf("\n\n");
+        else if(rdAnterior != partidaAtual->rodada) printf("\n");
+
+        rdAnterior = partidaAtual->rodada;
+        gpAnterior = partidaAtual->idGrupo;
+
         printf("Grupo %c Rodada %d\t%s %d x %d %s\n", partidaAtual ->idGrupo, partidaAtual ->rodada, 
         time1 ->nome, partidaAtual->placar[0], partidaAtual ->placar[1], time2 ->nome);
         i++;
     }
+
     free(time1);
     free(time2);
     fclose(partidas);
